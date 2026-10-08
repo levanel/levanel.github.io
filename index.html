@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aagrim Rautela</title>
-<meta name="description" content="Developer building energy software at Energeia.">
+<meta name="description" content="Aagrim Rautela — projects, models and notes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#ffffff; --fg:#111418; --muted:#6b7280; --line:#e7e8ec;
-    --accent:#2f7d6d; --card:#f7f8fa;
+    --bg:#fffafc; --fg:#1b1622; --muted:#6f6879; --line:#efe6ee;
+    --accent:#e0558f; --accent2:#6b7cff; --card:#ffffff;
   }
   @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --bg:#0f1115; --fg:#e8eaee; --muted:#9097a3; --line:#23262d; --accent:#5cc0a8; --card:#171a20; }
+    :root:not([data-theme="light"]){ --bg:#0f0d16; --fg:#ece8f4; --muted:#9c95ab; --line:#26212f; --accent:#ff7eb3; --accent2:#8f9cff; --card:#17141f; }
   }
-  :root[data-theme="dark"]{ --bg:#0f1115; --fg:#e8eaee; --muted:#9097a3; --line:#23262d; --accent:#5cc0a8; --card:#171a20; }
+  :root[data-theme="dark"]{ --bg:#0f0d16; --fg:#ece8f4; --muted:#9c95ab; --line:#26212f; --accent:#ff7eb3; --accent2:#8f9cff; --card:#17141f; }
 
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -25,46 +25,51 @@
   .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 
   /* top bar */
-  header.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+  header.top{position:fixed;inset:0 0 auto 0;z-index:20;backdrop-filter:blur(10px);background:color-mix(in srgb,var(--bg) 70%,transparent);border-bottom:1px solid var(--line)}
   header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
   .logo{font-weight:800;letter-spacing:-.02em}
+  .logo b{color:var(--accent)}
   nav.links{display:flex;gap:20px;font-size:14px;color:var(--muted)}
   .icon-btn{background:none;border:1px solid var(--line);color:var(--fg);border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:15px}
 
-  /* hero */
-  .hero{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;min-height:calc(100vh - 56px);padding:40px 0}
-  .hero h1{font-size:clamp(34px,6vw,56px);line-height:1.1;letter-spacing:-.03em;margin:0 0 12px;font-weight:800}
-  .hero h1 .hi{display:block;font-size:.5em;font-weight:500;color:var(--muted);letter-spacing:0;margin-bottom:8px}
-  .hero .tag{font-size:18px;color:var(--muted);margin:0 0 18px}
-  .code{font-family:"JetBrains Mono",monospace;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:inline-block;min-height:40px}
+  /* banner */
+  .banner{position:relative;height:min(62vh,520px);overflow:hidden;background:#2b2350}
+  .banner svg,.banner img,.banner canvas{position:absolute;inset:0;width:100%;height:100%}
+  .banner img{object-fit:cover}
+  .banner::after{content:"";position:absolute;inset:auto 0 0 0;height:120px;background:linear-gradient(transparent,var(--bg))}
+  .banner canvas{z-index:2;pointer-events:none}
+
+  /* profile head (overlaps banner) */
+  .head{position:relative;z-index:3;margin-top:-110px;display:flex;gap:28px;align-items:flex-end}
+  .avatar{width:168px;height:168px;border-radius:50%;object-fit:cover;border:5px solid var(--bg);background:var(--card);box-shadow:0 12px 40px rgba(0,0,0,.18);flex:none}
+  .head h1{font-size:clamp(32px,5.5vw,52px);line-height:1.05;letter-spacing:-.03em;margin:0 0 6px;font-weight:800}
+  .head h1 .hi{display:block;font-size:.4em;font-weight:500;color:var(--muted);letter-spacing:0;margin-bottom:6px}
+  .tag{color:var(--muted);margin:0}
+  .row2{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin:26px 0 8px}
+  .code{font-family:"JetBrains Mono",monospace;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;min-width:280px}
   .caret{display:inline-block;width:8px;background:var(--accent);animation:blink 1s step-end infinite;margin-left:2px}
   @keyframes blink{50%{opacity:0}}
-  .socials{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
-  .socials a{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px}
+  .socials{display:flex;gap:10px;flex-wrap:wrap}
+  .socials a{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:14px}
   .socials a:hover{border-color:var(--accent)}
-  .avatar-col{text-align:center}
-  .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:4px solid var(--card);box-shadow:0 10px 40px rgba(0,0,0,.12);background:var(--card)}
-  .quote{margin-top:18px;color:var(--muted);font-style:italic;font-size:15px}
+  .quote{color:var(--muted);font-style:italic;font-size:15px;margin:14px 0 0}
 
   /* sections */
   section{padding:56px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:0}
   h2{font-size:22px;letter-spacing:-.01em;margin:0 0 20px}
+  h2 small{font-weight:400;color:var(--muted);font-size:14px;margin-left:8px}
+  .feature{display:grid;grid-template-columns:1fr auto;gap:20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+  .feature::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(var(--accent),var(--accent2))}
+  .feature h3{margin:0 0 6px;font-size:20px}
+  .feature p{margin:0 0 12px;color:var(--muted)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px}
   ul.list{list-style:none;padding:0;margin:0}
   ul.list li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line)}
   ul.list .meta{color:var(--muted);font-size:13px;white-space:nowrap}
   .more{display:inline-block;margin-top:14px;font-size:14px;color:var(--accent)}
-
-  /* timeline strip */
-  .strip{position:relative;display:grid;grid-template-columns:repeat(12,1fr);border-top:2px solid var(--line);margin-top:30px}
-  .strip span{font-size:12px;color:var(--muted);padding-top:8px;text-align:center}
-  .event{position:absolute;top:-34px;transform:translateX(-50%);font-size:12px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2px 8px;white-space:nowrap}
-  .event::after{content:"";position:absolute;left:50%;bottom:-9px;width:8px;height:8px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
-
-  /* explore grid */
-  .explore{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-  .explore a{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;font-weight:500}
-  .explore a small{display:block;color:var(--muted);font-weight:400;font-size:13px}
 
   footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
   .fcols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:28px}
@@ -73,80 +78,126 @@
 
   @media (max-width:760px){
     nav.links{display:none}
-    .hero{grid-template-columns:1fr;text-align:left;min-height:auto}
-    .avatar-col{order:-1;text-align:left}
+    .banner{height:300px}
+    .head{flex-direction:column;align-items:flex-start;margin-top:-80px;gap:14px}
     .avatar{width:120px;height:120px}
+    .code{min-width:0;width:100%}
     .two-col{grid-template-columns:1fr;gap:40px}
-    .explore{grid-template-columns:1fr 1fr}
-    .strip .event{display:none}
+    .feature{grid-template-columns:1fr}
   }
+  @media (prefers-reduced-motion: reduce){ .banner canvas{display:none} }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#">aagrim.</a>
+    <a class="logo" href="#">aagrim<b>.</b></a>
     <nav class="links">
-      <a href="#work">Work</a><a href="#writing">Writing</a><a href="#timeline">Timeline</a><a href="#explore">Explore</a>
+      <a href="#projects">Projects</a><a href="#models">Models</a><a href="#code">Code</a>
     </nav>
     <button class="icon-btn" id="theme" aria-label="Toggle theme">◐</button>
   </div>
 </header>
 
+<!-- BANNER: drop your own image as banner.jpg next to index.html and it replaces the drawn scene -->
+<div class="banner">
+  <svg viewBox="0 0 1440 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2b2a6b"/>
+        <stop offset=".45" stop-color="#8a5bb5"/>
+        <stop offset=".75" stop-color="#ff9db5"/>
+        <stop offset="1" stop-color="#ffd6a5"/>
+      </linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#fff6e0"/><stop offset=".6" stop-color="#ffd1a1" stop-opacity=".9"/><stop offset="1" stop-color="#ffb3a7" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1440" height="520" fill="url(#sky)"/>
+    <!-- stars -->
+    <g fill="#fff" opacity=".8">
+      <circle cx="120" cy="60" r="1.5"/><circle cx="300" cy="30" r="1"/><circle cx="520" cy="80" r="1.4"/><circle cx="760" cy="40" r="1"/>
+      <circle cx="980" cy="70" r="1.6"/><circle cx="1180" cy="35" r="1.2"/><circle cx="1350" cy="90" r="1"/><circle cx="640" cy="20" r="1.2"/>
+    </g>
+    <circle cx="1060" cy="330" r="150" fill="url(#sun)"/>
+    <!-- clouds -->
+    <g fill="#ffe4ef" opacity=".55">
+      <ellipse cx="260" cy="210" rx="190" ry="26"/><ellipse cx="340" cy="190" rx="110" ry="30"/>
+      <ellipse cx="1220" cy="170" rx="170" ry="22"/><ellipse cx="1150" cy="155" rx="90" ry="24"/>
+      <ellipse cx="760" cy="260" rx="240" ry="18"/>
+    </g>
+    <!-- far mountains -->
+    <path d="M0 380 L140 300 L250 350 L390 260 L520 340 L640 290 L780 360 L900 300 L1040 350 L1180 280 L1320 340 L1440 300 L1440 520 L0 520Z" fill="#7a5a9e" opacity=".7"/>
+    <!-- near hills -->
+    <path d="M0 430 Q200 370 420 420 T860 410 T1440 400 L1440 520 L0 520Z" fill="#4a3a73"/>
+    <!-- cherry tree silhouette -->
+    <g fill="#3a2c5c">
+      <path d="M210 520 L222 410 Q200 380 170 372 L176 366 Q206 372 226 396 L236 330 L246 330 L240 400 Q262 370 300 360 L302 368 Q268 382 244 420 L238 520Z"/>
+    </g>
+    <g fill="#ffb7cf" opacity=".95">
+      <circle cx="170" cy="360" r="40"/><circle cx="225" cy="320" r="52"/><circle cx="290" cy="350" r="42"/><circle cx="250" cy="370" r="34"/><circle cx="195" cy="335" r="30"/>
+    </g>
+    <g fill="#ff93b8" opacity=".8">
+      <circle cx="205" cy="372" r="22"/><circle cx="268" cy="330" r="26"/><circle cx="232" cy="300" r="20"/>
+    </g>
+    <!-- small house with lit window -->
+    <g transform="translate(1180 392)">
+      <rect x="0" y="16" width="70" height="40" fill="#2f2550"/>
+      <path d="M-8 18 L35 -8 L78 18Z" fill="#251d42"/>
+      <rect x="40" y="28" width="14" height="12" fill="#ffd27a"/>
+    </g>
+    <!-- power-line style wire with birds -->
+    <path d="M0 150 Q720 230 1440 140" stroke="#2b2350" stroke-width="2" fill="none" opacity=".5"/>
+    <g fill="#2b2350" opacity=".6"><path d="M560 182 q6 -6 12 0 q6 -6 12 0" stroke="#2b2350" stroke-width="2" fill="none"/><path d="M610 186 q5 -5 10 0 q5 -5 10 0" stroke="#2b2350" stroke-width="2" fill="none"/></g>
+  </svg>
+  <img src="banner.jpg" alt="" onerror="this.remove()">
+  <canvas id="petals"></canvas>
+</div>
+
 <main class="wrap">
-  <!-- HERO -->
-  <div class="hero">
+  <div class="head">
+    <img class="avatar" src="avatar.jpg" alt="Aagrim" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x2=%221%22 y2=%221%22%3E%3Cstop stop-color=%22%23e0558f%22/%3E%3Cstop offset=%221%22 stop-color=%22%236b7cff%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22100%22 height=%22100%22 fill=%22url(%23g)%22/%3E%3Ctext x=%2250%22 y=%2262%22 font-size=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3EAR%3C/text%3E%3C/svg%3E'">
     <div>
       <h1><span class="hi">Hey there, I'm</span>Aagrim Rautela</h1>
-      <p class="tag">Developer at Energeia · final-year B.Tech @ IILM</p>
-      <div class="code"><span id="typed"></span><span class="caret">&nbsp;</span></div>
-      <div class="socials">
-        <a href="https://github.com/YOUR_GITHUB" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a>
-        <a href="mailto:you@example.com">Email</a>
-      </div>
-    </div>
-    <div class="avatar-col">
-      <!-- replace avatar.jpg with your photo (put it next to index.html) -->
-      <img class="avatar" src="avatar.jpg" alt="Aagrim" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%232f7d6d%22/%3E%3Ctext x=%2250%22 y=%2262%22 font-size=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3EAR%3C/text%3E%3C/svg%3E'">
-      <div class="quote">"Measure first, optimise second."</div>
+      <p class="tag">Final-year B.Tech @ IILM · systems, search &amp; ML</p>
     </div>
   </div>
+  <div class="row2">
+    <div class="code"><span id="typed"></span><span class="caret">&nbsp;</span></div>
+    <div class="socials">
+      <a href="https://github.com/YOUR_GITHUB" target="_blank">GitHub</a>
+      <a href="https://huggingface.co/YOUR_HF" target="_blank">🤗 Hugging Face</a>
+      <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a>
+      <a href="mailto:you@example.com">Email</a>
+    </div>
+  </div>
+  <p class="quote">"QUOTE_HERE"</p>
 
-  <!-- WORK + WRITING -->
+  <!-- PROJECTS -->
+  <section id="projects" style="margin-top:40px">
+    <h2>Projects</h2>
+    <div class="feature">
+      <div>
+        <h3>Vecmini</h3>
+        <p>A bare-metal C++ vector search engine, benchmarked against Meta's FAISS. University major project, with a patent application in progress.</p>
+        <div class="chips"><span class="chip">C++</span><span class="chip">vector search</span><span class="chip">ANN</span><span class="chip">patent pending</span></div>
+      </div>
+      <a class="more" href="#" style="align-self:end">Read more →</a>
+    </div>
+  </section>
+
+  <!-- HF + GITHUB -->
   <section class="two-col">
-    <div id="work">
-      <h2>Projects</h2>
-      <ul class="list">
-        <li><a href="#">Enersight — industrial EMS / ESCO platform</a><span class="meta">Energeia</span></li>
-        <li><a href="#">Solar generation dashboard</a><span class="meta">Energeia</span></li>
-        <li><a href="#">P&amp;ID site-mapping tool</a><span class="meta">Energeia</span></li>
-        <li><a href="#">Vecmini — vector search engine</a><span class="meta">Major project</span></li>
-      </ul>
-      <a class="more" href="https://github.com/YOUR_GITHUB?tab=repositories">More on GitHub →</a>
+    <div id="models">
+      <h2>Hugging Face <small>models &amp; spaces</small></h2>
+      <ul class="list" id="hf"><li><span class="meta">Loading…</span></li></ul>
+      <a class="more" href="https://huggingface.co/YOUR_HF" target="_blank">View profile →</a>
     </div>
-    <div id="writing">
-      <h2>Latest from GitHub</h2>
+    <div id="code">
+      <h2>GitHub <small>recently updated</small></h2>
       <ul class="list" id="repos"><li><span class="meta">Loading…</span></li></ul>
-      <a class="more" href="https://github.com/YOUR_GITHUB">All activity →</a>
-    </div>
-  </section>
-
-  <!-- TIMELINE STRIP -->
-  <section id="timeline">
-    <h2>This year</h2>
-    <div class="strip" id="strip"></div>
-  </section>
-
-  <!-- EXPLORE -->
-  <section id="explore">
-    <h2>Explore elsewhere</h2>
-    <div class="explore">
-      <a href="#work">Projects<small>Things I've built</small></a>
-      <a href="#writing">Notes<small>Short write-ups</small></a>
-      <a href="#timeline">Timeline<small>What happened when</small></a>
-      <a href="https://github.com/YOUR_GITHUB" target="_blank">GitHub<small>Code &amp; repos</small></a>
+      <a class="more" href="https://github.com/YOUR_GITHUB" target="_blank">All repos →</a>
     </div>
   </section>
 </main>
@@ -154,26 +205,24 @@
 <footer>
   <div class="wrap">
     <div class="fcols">
-      <div><h4>About</h4><a href="#">About me</a><a href="#work">Projects</a></div>
-      <div><h4>More</h4><a href="#timeline">Timeline</a><a href="#explore">Links</a></div>
-      <div><h4>Contact</h4><a href="mailto:you@example.com">Email</a><a href="https://github.com/YOUR_GITHUB">GitHub</a></div>
+      <div><h4>About</h4><a href="#">About me</a><a href="#projects">Projects</a></div>
+      <div><h4>Elsewhere</h4><a href="https://huggingface.co/YOUR_HF">Hugging Face</a><a href="https://github.com/YOUR_GITHUB">GitHub</a></div>
+      <div><h4>Contact</h4><a href="mailto:you@example.com">Email</a><a href="https://linkedin.com/in/YOUR_LINKEDIN">LinkedIn</a></div>
     </div>
-    © <span id="yr"></span> Aagrim Rautela · Hosted free on GitHub Pages
+    © <span id="yr"></span> Aagrim Rautela
   </div>
 </footer>
 
 <script>
   // ===== EDIT THESE =====
   const GITHUB_USER = "YOUR_GITHUB";
-  const TYPED_LINES = ["building energy software ⚡", "kW, kWh & clean dashboards", "shipping Enersight"];
-  const EVENTS = [ // month index 0–11, label
-    [0, "Vecmini patent"], [5, "Joined Energeia"], [8, "Solar dashboard"]
-  ];
+  const HF_USER = "YOUR_HF";
+  const TYPED_LINES = ["indexing vectors at bare-metal speed", "C++ · search · ML", "currently: LINE_HERE"];
   // ======================
 
   document.getElementById("yr").textContent = new Date().getFullYear();
 
-  // theme toggle (remembered per browser)
+  // theme toggle
   const root = document.documentElement;
   try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch(e){}
   document.getElementById("theme").onclick = () => {
@@ -194,26 +243,56 @@
     })();
   })();
 
-  // timeline strip
+  // falling sakura petals
   (function(){
-    const strip = document.getElementById("strip");
-    "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").forEach(m => {
-      const s = document.createElement("span"); s.textContent = m; strip.appendChild(s);
-    });
-    EVENTS.forEach(([m, label]) => {
-      const e = document.createElement("div"); e.className = "event";
-      e.style.left = ((m + .5) / 12 * 100) + "%"; e.textContent = label; strip.appendChild(e);
-    });
+    const c = document.getElementById("petals"), x = c.getContext("2d");
+    let W, H, P = [];
+    const size = () => { W = c.width = c.offsetWidth * devicePixelRatio; H = c.height = c.offsetHeight * devicePixelRatio; };
+    size(); addEventListener("resize", size);
+    const n = innerWidth < 760 ? 18 : 40;
+    const make = (top) => ({ x: Math.random()*W, y: top ? -20 : Math.random()*H, r: (4+Math.random()*5)*devicePixelRatio,
+      vx: (0.3+Math.random()*0.7)*devicePixelRatio, vy: (0.6+Math.random()*0.9)*devicePixelRatio, a: Math.random()*6.28, va: 0.01+Math.random()*0.03 });
+    for (let i = 0; i < n; i++) P.push(make(false));
+    (function frame(){
+      x.clearRect(0,0,W,H);
+      for (const p of P){
+        p.x += p.vx + Math.sin(p.a)*0.6; p.y += p.vy; p.a += p.va;
+        if (p.y > H+20 || p.x > W+20) Object.assign(p, make(true), { x: Math.random()*W*0.8 - W*0.1 });
+        x.save(); x.translate(p.x,p.y); x.rotate(p.a); x.scale(1, Math.abs(Math.cos(p.a))*0.6+0.4);
+        x.fillStyle = "rgba(255,183,207,.9)";
+        x.beginPath(); x.ellipse(0,0,p.r,p.r*0.6,0,0,6.28); x.fill(); x.restore();
+      }
+      requestAnimationFrame(frame);
+    })();
   })();
 
-  // latest repos from GitHub (public API, no key needed)
+  const fmt = d => new Date(d).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+
+  // Hugging Face models + spaces (public API)
+  (async function(){
+    const ul = document.getElementById("hf");
+    try {
+      const [m, s] = await Promise.all([
+        fetch(`https://huggingface.co/api/models?author=${HF_USER}&sort=lastModified&direction=-1&limit=6`).then(r => r.ok ? r.json() : []),
+        fetch(`https://huggingface.co/api/spaces?author=${HF_USER}&sort=lastModified&direction=-1&limit=6`).then(r => r.ok ? r.json() : [])
+      ]);
+      const items = [...m.map(x => ({...x, kind:"model", url:`https://huggingface.co/${x.id}`})),
+                     ...s.map(x => ({...x, kind:"space", url:`https://huggingface.co/spaces/${x.id}`}))]
+        .sort((a,b) => new Date(b.lastModified||0) - new Date(a.lastModified||0)).slice(0,6);
+      ul.innerHTML = items.length
+        ? items.map(x => `<li><a href="${x.url}" target="_blank">${x.id.split("/")[1]}</a><span class="meta">${x.kind}${x.likes ? " · ♥ "+x.likes : ""}</span></li>`).join("")
+        : "<li><span class='meta'>Set HF_USER in index.html</span></li>";
+    } catch { ul.innerHTML = "<li><span class='meta'>Couldn't reach Hugging Face</span></li>"; }
+  })();
+
+  // GitHub repos (public API)
   (async function(){
     const ul = document.getElementById("repos");
     try {
-      const r = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=5`);
+      const r = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=6`);
       if (!r.ok) throw 0;
       const repos = await r.json();
-      ul.innerHTML = repos.map(x => `<li><a href="${x.html_url}" target="_blank">${x.name}</a><span class="meta">${new Date(x.pushed_at).toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span></li>`).join("") || "<li><span class='meta'>No public repos yet</span></li>";
+      ul.innerHTML = repos.map(x => `<li><a href="${x.html_url}" target="_blank">${x.name}</a><span class="meta">${fmt(x.pushed_at)}</span></li>`).join("") || "<li><span class='meta'>No public repos yet</span></li>";
     } catch { ul.innerHTML = "<li><span class='meta'>Set GITHUB_USER in index.html</span></li>"; }
   })();
 </script>
