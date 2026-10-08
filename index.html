@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aagrim Rautela</title>
+<meta name="description" content="Developer building energy software at Energeia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#111418; --muted:#6b7280; --line:#e7e8ec;
+    --accent:#2f7d6d; --card:#f7f8fa;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#0f1115; --fg:#e8eaee; --muted:#9097a3; --line:#23262d; --accent:#5cc0a8; --card:#171a20; }
+  }
+  :root[data-theme="dark"]{ --bg:#0f1115; --fg:#e8eaee; --muted:#9097a3; --line:#23262d; --accent:#5cc0a8; --card:#171a20; }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 Inter,system-ui,sans-serif;transition:background .2s,color .2s}
+  a{color:inherit;text-decoration:none}
+  a:hover{color:var(--accent)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+
+  /* top bar */
+  header.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:800;letter-spacing:-.02em}
+  nav.links{display:flex;gap:20px;font-size:14px;color:var(--muted)}
+  .icon-btn{background:none;border:1px solid var(--line);color:var(--fg);border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:15px}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;min-height:calc(100vh - 56px);padding:40px 0}
+  .hero h1{font-size:clamp(34px,6vw,56px);line-height:1.1;letter-spacing:-.03em;margin:0 0 12px;font-weight:800}
+  .hero h1 .hi{display:block;font-size:.5em;font-weight:500;color:var(--muted);letter-spacing:0;margin-bottom:8px}
+  .hero .tag{font-size:18px;color:var(--muted);margin:0 0 18px}
+  .code{font-family:"JetBrains Mono",monospace;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:inline-block;min-height:40px}
+  .caret{display:inline-block;width:8px;background:var(--accent);animation:blink 1s step-end infinite;margin-left:2px}
+  @keyframes blink{50%{opacity:0}}
+  .socials{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .socials a{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px}
+  .socials a:hover{border-color:var(--accent)}
+  .avatar-col{text-align:center}
+  .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:4px solid var(--card);box-shadow:0 10px 40px rgba(0,0,0,.12);background:var(--card)}
+  .quote{margin-top:18px;color:var(--muted);font-style:italic;font-size:15px}
+
+  /* sections */
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-size:22px;letter-spacing:-.01em;margin:0 0 20px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  ul.list{list-style:none;padding:0;margin:0}
+  ul.list li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  ul.list .meta{color:var(--muted);font-size:13px;white-space:nowrap}
+  .more{display:inline-block;margin-top:14px;font-size:14px;color:var(--accent)}
+
+  /* timeline strip */
+  .strip{position:relative;display:grid;grid-template-columns:repeat(12,1fr);border-top:2px solid var(--line);margin-top:30px}
+  .strip span{font-size:12px;color:var(--muted);padding-top:8px;text-align:center}
+  .event{position:absolute;top:-34px;transform:translateX(-50%);font-size:12px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2px 8px;white-space:nowrap}
+  .event::after{content:"";position:absolute;left:50%;bottom:-9px;width:8px;height:8px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
+
+  /* explore grid */
+  .explore{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .explore a{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;font-weight:500}
+  .explore a small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+  .fcols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:28px}
+  .fcols h4{color:var(--fg);margin:0 0 8px;font-size:14px}
+  .fcols a{display:block;padding:2px 0}
+
+  @media (max-width:760px){
+    nav.links{display:none}
+    .hero{grid-template-columns:1fr;text-align:left;min-height:auto}
+    .avatar-col{order:-1;text-align:left}
+    .avatar{width:120px;height:120px}
+    .two-col{grid-template-columns:1fr;gap:40px}
+    .explore{grid-template-columns:1fr 1fr}
+    .strip .event{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">aagrim.</a>
+    <nav class="links">
+      <a href="#work">Work</a><a href="#writing">Writing</a><a href="#timeline">Timeline</a><a href="#explore">Explore</a>
+    </nav>
+    <button class="icon-btn" id="theme" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <h1><span class="hi">Hey there, I'm</span>Aagrim Rautela</h1>
+      <p class="tag">Developer at Energeia · final-year B.Tech @ IILM</p>
+      <div class="code"><span id="typed"></span><span class="caret">&nbsp;</span></div>
+      <div class="socials">
+        <a href="https://github.com/YOUR_GITHUB" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a>
+        <a href="mailto:you@example.com">Email</a>
+      </div>
+    </div>
+    <div class="avatar-col">
+      <!-- replace avatar.jpg with your photo (put it next to index.html) -->
+      <img class="avatar" src="avatar.jpg" alt="Aagrim" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%232f7d6d%22/%3E%3Ctext x=%2250%22 y=%2262%22 font-size=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3EAR%3C/text%3E%3C/svg%3E'">
+      <div class="quote">"Measure first, optimise second."</div>
+    </div>
+  </div>
+
+  <!-- WORK + WRITING -->
+  <section class="two-col">
+    <div id="work">
+      <h2>Projects</h2>
+      <ul class="list">
+        <li><a href="#">Enersight — industrial EMS / ESCO platform</a><span class="meta">Energeia</span></li>
+        <li><a href="#">Solar generation dashboard</a><span class="meta">Energeia</span></li>
+        <li><a href="#">P&amp;ID site-mapping tool</a><span class="meta">Energeia</span></li>
+        <li><a href="#">Vecmini — vector search engine</a><span class="meta">Major project</span></li>
+      </ul>
+      <a class="more" href="https://github.com/YOUR_GITHUB?tab=repositories">More on GitHub →</a>
+    </div>
+    <div id="writing">
+      <h2>Latest from GitHub</h2>
+      <ul class="list" id="repos"><li><span class="meta">Loading…</span></li></ul>
+      <a class="more" href="https://github.com/YOUR_GITHUB">All activity →</a>
+    </div>
+  </section>
+
+  <!-- TIMELINE STRIP -->
+  <section id="timeline">
+    <h2>This year</h2>
+    <div class="strip" id="strip"></div>
+  </section>
+
+  <!-- EXPLORE -->
+  <section id="explore">
+    <h2>Explore elsewhere</h2>
+    <div class="explore">
+      <a href="#work">Projects<small>Things I've built</small></a>
+      <a href="#writing">Notes<small>Short write-ups</small></a>
+      <a href="#timeline">Timeline<small>What happened when</small></a>
+      <a href="https://github.com/YOUR_GITHUB" target="_blank">GitHub<small>Code &amp; repos</small></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div><h4>About</h4><a href="#">About me</a><a href="#work">Projects</a></div>
+      <div><h4>More</h4><a href="#timeline">Timeline</a><a href="#explore">Links</a></div>
+      <div><h4>Contact</h4><a href="mailto:you@example.com">Email</a><a href="https://github.com/YOUR_GITHUB">GitHub</a></div>
+    </div>
+    © <span id="yr"></span> Aagrim Rautela · Hosted free on GitHub Pages
+  </div>
+</footer>
+
+<script>
+  // ===== EDIT THESE =====
+  const GITHUB_USER = "YOUR_GITHUB";
+  const TYPED_LINES = ["building energy software ⚡", "kW, kWh & clean dashboards", "shipping Enersight"];
+  const EVENTS = [ // month index 0–11, label
+    [0, "Vecmini patent"], [5, "Joined Energeia"], [8, "Solar dashboard"]
+  ];
+  // ======================
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  // theme toggle (remembered per browser)
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch(e){}
+  document.getElementById("theme").onclick = () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch(e){}
+  };
+
+  // typewriter
+  (function(){
+    const el = document.getElementById("typed"); let i = 0, j = 0, del = false;
+    (function tick(){
+      const s = "> " + TYPED_LINES[i];
+      el.textContent = s.slice(0, j);
+      if (!del && j++ >= s.length) { del = true; return setTimeout(tick, 1400); }
+      if (del && j-- <= 2) { del = false; i = (i + 1) % TYPED_LINES.length; }
+      setTimeout(tick, del ? 35 : 70);
+    })();
+  })();
+
+  // timeline strip
+  (function(){
+    const strip = document.getElementById("strip");
+    "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ").forEach(m => {
+      const s = document.createElement("span"); s.textContent = m; strip.appendChild(s);
+    });
+    EVENTS.forEach(([m, label]) => {
+      const e = document.createElement("div"); e.className = "event";
+      e.style.left = ((m + .5) / 12 * 100) + "%"; e.textContent = label; strip.appendChild(e);
+    });
+  })();
+
+  // latest repos from GitHub (public API, no key needed)
+  (async function(){
+    const ul = document.getElementById("repos");
+    try {
+      const r = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=5`);
+      if (!r.ok) throw 0;
+      const repos = await r.json();
+      ul.innerHTML = repos.map(x => `<li><a href="${x.html_url}" target="_blank">${x.name}</a><span class="meta">${new Date(x.pushed_at).toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span></li>`).join("") || "<li><span class='meta'>No public repos yet</span></li>";
+    } catch { ul.innerHTML = "<li><span class='meta'>Set GITHUB_USER in index.html</span></li>"; }
+  })();
+</script>
+</body>
+</html>
